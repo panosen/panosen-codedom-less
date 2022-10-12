@@ -12,14 +12,20 @@ namespace Panosen.CodeDom.Less.Engine
         /// <summary>
         /// 生成css文件
         /// </summary>
-        /// <param name="codeFile"></param>
-        /// <param name="codeWriter"></param>
-        /// <param name="options"></param>
         public void Generate(CodeLessFile codeFile, CodeWriter codeWriter, GenerationOptions options = null)
         {
             if (codeFile == null) { return; }
             if (codeWriter == null) { return; }
             options = options ?? new GenerationOptions();
+
+            if (!string.IsNullOrEmpty(codeFile.Summary))
+            {
+                codeWriter.Write(options.IndentString)
+                    .Write(Marks.SLASH).Write(Marks.STAR).WriteLine(Marks.Exclamation)
+                    .Write(Marks.WHITESPACE).Write(Marks.STAR).Write(Marks.WHITESPACE).WriteLine(codeFile.Summary)
+                    .Write(Marks.WHITESPACE).Write(Marks.STAR).WriteLine(Marks.SLASH);
+                codeWriter.WriteLine();
+            }
 
             if (codeFile.Variables != null && codeFile.Variables.Count > 0)
             {
@@ -33,9 +39,6 @@ namespace Panosen.CodeDom.Less.Engine
         /// <summary>
         /// 生成变量
         /// </summary>
-        /// <param name="variables"></param>
-        /// <param name="codeWriter"></param>
-        /// <param name="options"></param>
         public void Generate(Dictionary<string, string> variables, CodeWriter codeWriter, GenerationOptions options = null)
         {
             if (variables == null || variables.Count == 0)
@@ -80,18 +83,18 @@ namespace Panosen.CodeDom.Less.Engine
         /// <summary>
         /// 生成css
         /// </summary>
-        /// <param name="codeLess"></param>
-        /// <param name="codeWriter"></param>
-        /// <param name="options"></param>
         public void Generate(CodeLess codeLess, CodeWriter codeWriter, GenerationOptions options = null)
         {
             if (codeLess == null) { return; }
             if (codeWriter == null) { return; }
             options = options ?? new GenerationOptions();
 
-            if (!string.IsNullOrEmpty(codeLess.Comment))
+            if (!string.IsNullOrEmpty(codeLess.Summary))
             {
-                codeWriter.Write(options.IndentString).Write(Marks.SLASH).Write(Marks.SLASH).WriteLine(codeLess.Comment);
+                codeWriter.Write(options.IndentString)
+                    .Write(Marks.SLASH).Write(Marks.STAR).Write(Marks.WHITESPACE)
+                    .Write(codeLess.Summary)
+                    .Write(Marks.WHITESPACE).Write(Marks.STAR).WriteLine(Marks.SLASH);
             }
             codeWriter.Write(options.IndentString).Write(codeLess.Name).Write(Marks.WHITESPACE).WriteLine(Marks.LEFT_BRACE);
             options.PushIndent();

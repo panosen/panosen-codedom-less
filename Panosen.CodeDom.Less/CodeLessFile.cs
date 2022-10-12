@@ -12,6 +12,11 @@ namespace Panosen.CodeDom.Less
     public class CodeLessFile
     {
         /// <summary>
+        /// 文件注释
+        /// </summary>
+        public string Summary { get; set; }
+
+        /// <summary>
         /// 变量
         /// </summary>
         public Dictionary<string, string> Variables { get; set; }
@@ -30,10 +35,6 @@ namespace Panosen.CodeDom.Less
         /// <summary>
         /// 添加变量
         /// </summary>
-        /// <param name="codeFile"></param>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
         public static CodeLessFile AddVariable(this CodeLessFile codeFile, string key, string value)
         {
             if (codeFile.Variables == null)
@@ -47,11 +48,9 @@ namespace Panosen.CodeDom.Less
         }
 
         /// <summary>
-        /// add css
+        /// AddLess
         /// </summary>
-        /// <param name="codeFile"></param>
-        /// <param name="codeLess"></param>
-        public static CodeLessFile AddCodeLess(this CodeLessFile codeFile, CodeLess codeLess)
+        public static CodeLessFile AddLess(this CodeLessFile codeFile, CodeLess codeLess)
         {
             if (codeFile.CodeLessList == null)
             {
@@ -64,12 +63,9 @@ namespace Panosen.CodeDom.Less
         }
 
         /// <summary>
-        /// add css
+        /// AddLess
         /// </summary>
-        /// <param name="codeFile"></param>
-        /// <param name="name"></param>
-        /// <param name="comment"></param>
-        public static CodeLess AddCodeLess(this CodeLessFile codeFile, string name = null, string comment = null)
+        public static CodeLess AddLess(this CodeLessFile codeFile, string name = null, string summary = null)
         {
             if (codeFile.CodeLessList == null)
             {
@@ -78,7 +74,7 @@ namespace Panosen.CodeDom.Less
 
             CodeLess codeLess = new CodeLess();
             codeLess.Name = name;
-            codeLess.Comment = comment;
+            codeLess.Summary = summary;
 
             codeFile.CodeLessList.Add(codeLess);
 

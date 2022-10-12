@@ -14,9 +14,6 @@ namespace Panosen.CodeDom.Less.Engine
         /// <summary>
         /// TransformText
         /// </summary>
-        /// <param name="codeLess"></param>
-        /// <param name="options"></param>
-        /// <returns></returns>
         public static string TransformText(this CodeLess codeLess, GenerationOptions options = null)
         {
             var builder = new StringBuilder();

@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Panosen.CodeDom.Css;
 
 namespace Panosen.CodeDom.Less.Engine.MSTest
 {
@@ -22,21 +23,21 @@ namespace Panosen.CodeDom.Less.Engine.MSTest
             CodeLess codeLess = new CodeLess();
 
             codeLess.Name = ".basic";
-            codeLess.Margin = "10px";
-            codeLess.BackgroundColor = "#f00";
+            codeLess.AddProperty("margin", "10px");
+            codeLess.AddProperty("background-color", "#f00");
 
             {
                 var less = codeLess.AddChild("&.active");
-                less.Margin = "5px";
+                less.AddProperty("margin", "5px");
             }
 
             {
                 var less = codeLess.AddChild("&.disable");
-                less.Margin = "6px";
+                less.AddProperty("margin", "6px");
 
                 {
                     var less2 = less.AddChild("a");
-                    less2.BackgroundColor = "#f00";
+                    less2.AddProperty("background-color", "#f00");
                 }
             }
 
